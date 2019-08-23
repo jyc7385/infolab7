@@ -11,6 +11,7 @@ GWAS_main<-function(Y,G,pc_num) {
 	geno_num <-as.matrix(G)
 	geno_pos <-1:nrow(geno_num)
 	geno_chr <-rep(1,nrow(geno_num))
+	bp <- 1:nrow(geno_num)
 
 	pheno_num<-as.matrix(Y)
 	print("Genotype encoding complete.")
@@ -25,7 +26,7 @@ GWAS_main<-function(Y,G,pc_num) {
 	print("Adjusted Genotype matrix complete.")
 
 	kpv<-kendallTest(geno=adj_geno,pheno=pheno_num)
-	ken_pv <-cbind(geno_chr,geno_pos,kpv)
+	ken_pv <-cbind(geno_chr,geno_pos,kpv, bp)
         write.table(ken_pv,file="kendall_test.txt",row.names=F,col.names=F,quote=F,append=F)
 	print("Kendall Test complete.")
 
